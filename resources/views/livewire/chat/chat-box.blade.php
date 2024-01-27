@@ -119,13 +119,17 @@
 
         <div class=" p-2 border-t">
 
-            <form method="POST" autocapitalize="off">
+            <form
+                x-data="{body:@entangle('body')}"
+                @submit.prevent="$wire.sendMessage"
+                method="POST" autocapitalize="off">
                 @csrf
 
                 <input type="hidden" autocomplete="false" style="display:none">
 
                 <div class="grid grid-cols-12">
                     <input
+                        x-model="body"
                         type="text"
                         autocomplete="off"
                         autofocus
@@ -134,7 +138,7 @@
                         class="col-span-10 bg-gray-100 border-0 outline-0 focus:border-0 focus:ring-0 hover:ring-0 rounded-lg  focus:outline-none"
                     >
 
-                    <button  class="col-span-2" type='submit'>Send</button>
+                    <button x-bind:disabled="!body.trim()"  class="col-span-2" type='submit'>Send</button>
 
                 </div>
 
