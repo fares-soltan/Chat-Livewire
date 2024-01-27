@@ -20,6 +20,8 @@ class ChatBox extends Component
         $this->paginate_var += 10;
 
         $this->loadMessages();
+
+        $this->dispatch('update-chat-height');
     }
 
     public function loadMessages()
