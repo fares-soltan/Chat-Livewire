@@ -3,6 +3,7 @@
 namespace App\Livewire\Chat;
 
 use App\Models\Message;
+use App\Notifications\MessageRead;
 use App\Notifications\MessageSent;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -35,6 +36,13 @@ class ChatBox extends Component
                 $newMessage = Message::find($event['message_id']);
 
                 $this->loadedMessages->push($newMessage);
+
+                $newMessage->read_at = now();
+                $newMessage->save();
+
+                $this->selectedConversation->getReceiver()
+                    ->notify(new MessageRead($this->selectedConversation->id));
+
             }
         }
     }
