@@ -3,6 +3,8 @@
 namespace App\Livewire\Chat;
 
 use App\Models\Message;
+use App\Notifications\MessageSent;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class ChatBox extends Component
@@ -68,6 +70,16 @@ class ChatBox extends Component
 
         #refresh chatlist
         $this->dispatch('refresh','chat.chat-list');
+
+        # BroadCast
+
+        $this->selectedConversation->getReceiver()
+            ->notify(new MessageSent(
+                Auth()->user(),
+                $sendMessage,
+                $this->selectedConversation,
+                $this->selectedConversation->getReceiver()->id
+            ));
 
     }
 
