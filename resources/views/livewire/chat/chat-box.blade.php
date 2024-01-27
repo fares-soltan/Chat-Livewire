@@ -76,9 +76,7 @@
 
                         ]) >
 
-
-                                5:25 AM
-
+                                {{$message->created_at->format('g:i a')}}
                             </p>
 
                             {{-- message status , only show if message belongs auth --}}
