@@ -88,9 +88,11 @@
                                     </p>
 
                                     {{-- unread count --}}
+                                    @if($conversation->unreadMessagesCount() > 0)
                                     <span class="font-bold p-px px-2 text-xs shrink-0 rounded-full bg-blue-500 text-white">
-                                5
+                                {{$conversation->unreadMessagesCount()}}
                              </span>
+                                    @endif
                                 </div>
                             </a>
 

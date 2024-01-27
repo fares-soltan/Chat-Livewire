@@ -32,4 +32,13 @@ class Conversation extends Model
 
     }
 
+    public  function unreadMessagesCount() : int {
+
+
+        return $unreadMessages= Message::where('conversation_id','=',$this->id)
+            ->where('receiver_id',auth()->user()->id)
+            ->whereNull('read_at')->count();
+
+    }
+
 }
