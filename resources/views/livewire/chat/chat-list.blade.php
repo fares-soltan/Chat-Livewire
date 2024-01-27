@@ -1,4 +1,34 @@
 <div x-data="{type:'all'}"
+     x-init="
+
+   setTimeout(()=>{
+
+    conversationElement = document.getElementById('conversation-'+query);
+
+
+    //scroll to the element
+
+    if(conversationElement)
+    {
+
+        conversationElement.scrollIntoView({'behavior':'smooth'});
+
+    }
+
+    },200);
+
+
+
+    Echo.private('users.{{Auth()->User()->id}}')
+    .notification((notification)=>{
+        if(notification['type']== 'App\\Notifications\\MessageRead'||notification['type']== 'App\\Notifications\\MessageSent')
+        {
+
+            $wire.dispatch('refresh');
+        }
+    });
+
+   "
 
     class="flex flex-col transition-all h-full overflow-hidden">
 
