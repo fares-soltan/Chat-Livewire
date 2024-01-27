@@ -10,10 +10,28 @@ class ChatBox extends Component
     public $selectedConversation;
     public $body;
     public $loadedMessages;
+    public $paginate_var = 10;
+
+    protected $listeners = ['loadMore'=>'loadMore'];
+
+
+    public function loadMore() : void
+    {
+        $this->paginate_var += 10;
+
+        $this->loadMessages();
+    }
 
     public function loadMessages()
     {
-        $this->loadedMessages = Message::where('conversation_id',$this->selectedConversation->id)->get();
+       $count = $this->loadedMessages = Message::where('conversation_id',$this->selectedConversation->id)->count();
+
+        $this->loadedMessages = Message::where('conversation_id',$this->selectedConversation->id)
+            ->skip($count - $this->paginate_var)
+            ->take($this->paginate_var)
+            ->get();
+
+        return $this->loadedMessages;
     }
 
     public function mount()

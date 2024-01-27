@@ -28,9 +28,15 @@
                 <h6 class="font-bold truncate"> {{$selectedConversation->getReceiver()->name}} </h6>
             </div>
         </header>
-
         {{-- body --}}
-        <main id="conversation" class="flex flex-col gap-3 p-2.5 overflow-y-auto flex-grow overscroll-contain overflow-x-hidden w-full my-auto">
+        <main
+            @scroll="
+         if ($event.target.scrollTop <= 0) {
+             $wire.dispatch('loadMore');
+         }
+     "
+
+            id="conversation" class="flex flex-col gap-3 p-2.5 overflow-y-auto flex-grow overscroll-contain overflow-x-hidden w-full my-auto">
 
             @if($loadedMessages)
                 @php
@@ -111,9 +117,10 @@
                     <input type="hidden" autocomplete="false" style="display:none">
                     <div class="grid grid-cols-12">
                         <input x-model="body" type="text" autocomplete="off" autofocus placeholder="write your message here" maxlength="1700" class="col-span-10 bg-gray-100 border-0 outline-0 focus:border-0 focus:ring-0 hover:ring-0 rounded-lg  focus:outline-none">
-                        <button x-bind:disabled="!body.trim()" class="col-span-2" type='submit'>Send</button>
+                        <button x-bind:disabled="!body || body.trim() === ''" class="col-span-2" type='submit'>Send</button>
                     </div>
                 </form>
+
                 @error('body')
                 <p> {{$message}} </p>
                 @enderror
