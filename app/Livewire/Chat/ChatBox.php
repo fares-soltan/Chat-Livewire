@@ -47,7 +47,7 @@ class ChatBox extends Component
         $this->selectedConversation->save();
 
         #refresh chatlist
-        $this->dispatch('chat.chat-list', 'refresh');
+        $this->dispatch('refresh','chat.chat-list');
 
     }
 

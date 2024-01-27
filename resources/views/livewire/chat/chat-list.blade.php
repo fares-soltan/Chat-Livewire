@@ -84,7 +84,7 @@
 
 
                                     <p class="grow truncate text-sm font-[100]">
-                                        A long description is a way to provide long alternative text for non-text elements, such as images. Generally, alternative text exceeding 250 characters, which cannot be made more concise without making it less descriptive or meaningful, should have a long description.
+                                        {{$conversation->messages->last()?->body ?? ""}}
                                     </p>
 
                                     {{-- unread count --}}
