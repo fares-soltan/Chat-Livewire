@@ -24,11 +24,11 @@
 
 
             <div class="shrink-0">
-                <x-avatar class="h-9 w-9 lg:w-11 lg:h-11" />
+                <x-avatar class="h-9 w-9 lg:w-11 lg:h-11" src="https://source.unsplash.com/500x500?face-{{$selectedConversation->id}}" />
             </div>
 
 
-            <h6 class="font-bold truncate"> {{fake()->email}} </h6>
+            <h6 class="font-bold truncate"> {{$selectedConversation->getReceiver()->name}} </h6>
 
 
         </div>
@@ -49,7 +49,7 @@
                 'shrink-0'
             ])>
 
-                <x-avatar />
+                <x-avatar src="https://source.unsplash.com/500x500?face-{{$selectedConversation->id}}" />
             </div>
 
             {{-- messsage body --}}
