@@ -33,7 +33,11 @@ class ChatBox extends Component
         ]);
 
         $this->reset('body');
-        dd($sendMessage);
+
+        ## Push message
+
+        $this->loadedMessages->push($sendMessage);
+
     }
 
     public function render()
